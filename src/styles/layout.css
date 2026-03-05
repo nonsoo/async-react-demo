@@ -1,0 +1,124 @@
+@layer resets, base, genericComps;
+
+:root {
+  /* FONTS */
+  --ff-prmy: "Nunito", sans-serif;
+
+  --fs-sm-prmy: 0.75rem;
+  --fs-sm-sec: 0.75rem;
+  --fs-prmy: 1rem;
+  --fs-sec: 1.25rem;
+  --fs-tri: 1.75rem;
+  --fs-four: 2rem;
+
+  --fw-prmy: 400;
+  --fw-sec: 500;
+  --fw-tri: 700;
+
+  /* COLOURS */
+  --col-text-prmy: light-dark(hsl(180, 20%, 25%), hsl(0, 0%, 100%));
+  --col-text-sec: light-dark(hsl(0, 0%, 100%), hsl(0, 0%, 23%));
+  --col-text-tri: light-dark(hsl(0, 0%, 23%), hsl(0, 0%, 100%));
+
+  --col-background-prmy: light-dark(hsl(270, 17%, 98%), hsl(0, 0%, 16%));
+  --col-background-sec: light-dark(hsl(0, 0%, 100%), hsl(0, 0%, 8%));
+  --col-background-tri: hsl(240, 9%, 91%);
+
+  --col-acc-prmy: hsl(180, 19%, 86%);
+  --col-acc-sec: hsl(180, 20%, 25%);
+  --col-acc-tri: hsl(236, 36%, 77%);
+  --col-acc-four: rgba(217, 217, 217, 0.5);
+
+  /* markdown parser Colours */
+  --col-md-acc-prmy: hsl(236, 36%, 77%, 0.5);
+  --col-md-acc-sec: hsl(236, 66%, 60%);
+
+  /* box Shadows */
+  --box-shadow:
+    2.4px 7.9px 10px rgba(0, 0, 0, 0.025), 19px 63px 80px rgba(0, 0, 0, 0.05);
+
+  /* border radius */
+  --border-radius-prmy: 10px;
+  --border-radius-sec: 20px;
+
+  /* Max width for containers */
+  --max-width-prmy: 1200px;
+  --max-width-sec: 900px;
+
+  /* bezier curve */
+  --bezier-curve: cubic-bezier(0.18, 0.34, 0.37, 0.91);
+
+  color-scheme: light dark;
+}
+
+@layer resets {
+  *,
+  *::before,
+  *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 1rem;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer base {
+  html {
+    background-color: light-dark(inherit, var(--col-background-prmy));
+  }
+
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
+
+    font-family: var(--ff-prmy);
+    font-size: var(--fs-prmy);
+    font-weight: var(--fw-prmy);
+
+    background-color: var(--col-background-prmy);
+    color: var(--col-text-prmy);
+  }
+
+  .main-container {
+    max-width: var(--max-width-prmy);
+    margin: 1em auto;
+    padding: 0 1em;
+  }
+}
+
+@media screen and (min-width: 50rem) {
+  :root {
+    --fs-sm-prmy: 1rem;
+    --fs-prmy: 1.25rem;
+    --fs-sec: 1.5rem;
+    --fs-tri: 2rem;
+    --fs-four: 2.75rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    box-shadow: none !important;
+  }
+}
