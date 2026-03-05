@@ -1,75 +1,17 @@
-# React + TypeScript + Vite
+# Async React Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This Demo provides an example of what an async react application looks and feels like. Take time to explore the codebase, and launch the demo as well!
 
-Currently, two official plugins are available:
+## Context
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Async first means building applications where we use declarative tools to express user intent, loading, priority, and visual continuity. This allows React to treat rendering as a schedulable, and interruptible operation that React itself coordinates.
 
-## React Compiler
+This means that we are defining a contract with the user; when the user acts immediately, the UI should respond immediately while some asynchronous work is done in the background. When the data is ready and no other higher priority work is to be done then we can show the completed state in a coordinated operation.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Taken together, this process looks something like our Instagram-like demo below. Let’s see how the interactions behave when we render the view, like/dislike a post, archive/unarchive a post, and switch tabs. Press Render view to begin!
 
-Note: This will impact Vite dev & build performances.
+Did you try mixing up the interactions? How did the experience change when you archived a post and then switched tabs immediately?
 
-## Expanding the ESLint configuration
+This demo is built using async first principles! We're using a combination of optimistic states, transitions, suspense, and activity to craft this experience. You may have noticed that switching tabs was pretty instantaneous; however, when we archived a post and then switched tabs immediately, we optimistically switched to the archive tab and showed a loading indicator within the tab viewer. Since the render for the archive tab wasn't ready yet, React kept the experience within the feed tab. Once the async work resolved with it's data, React could fully switch to the archive tab showing all updated archived posts.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+The important thing here is that all of this coordination is handled by React and we are just defining how these interactions should look. There is no useEffect within this demo that handles any of the async work!
